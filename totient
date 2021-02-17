@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+int euklid(int a, int b){
+//    cout << "Zeile 6" << endl;
+    start:
+    while(a > b){
+        a = a - b;
+    }
+    if (a < b){
+        a += b;
+        b = a - b;
+        a -= b;
+        goto start;
+    }
+    return a;
+}
+
+int phi(int eini){
+    int aussi = eini;
+    int teiler = -1;
+    start:
+    for (int i {2}; i <= eini; ++i){
+        if (!(eini % i)){
+            if (i > teiler){
+                teiler = i;
+                aussi = aussi * (teiler - 1);
+                aussi = aussi / teiler;
+                eini /= i;
+                goto start;
+            }
+            eini /= i;
+            goto start;
+        }
+    }
+    return aussi;
+}
+
+long long unsigned int hoch(int a, int b){
+    long long unsigned int aussi {1};
+    while (b > 0){
+        aussi = aussi * a;
+        b--;
+    }
+    return aussi;
+}
+
+int main() {
+    cout << " x\t\t" << "n\t\t" << "phi(n)\t\t" << "=\t\t" << " " <<"(mod n)" << endl;
+    for (int x {1}; x < 12; ++x){
+        for (int n {2}; n < 12; ++n){
+            if (euklid(x, n) == 1){
+                cout << x << '\t' << n << "\t\t" << phi(n) << " = " << hoch(x, phi(n)) << 
+                " (mod" << n << ") " << hoch(x, phi(n))%n << endl;
+            }
+        }
+    }
+
+
+    return 0;
+}
